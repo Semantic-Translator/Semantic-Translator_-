@@ -1,136 +1,73 @@
-from fastapi import FastAPI, Query
+from pathlib import Path
+from fastapi import FastAPI
 from pydantic import BaseModel, Field
 
-from backend.generation.retrieval_generator import RetrievalGenerator
-from backend.semantic.domain_detector import detect_domain
-from backend.translator.engine import TranslationEngine
-from backend.translator.terminology import search_terms
+from backend.rag.chunker import ChunkingConfig
+from backend.rag.generator import RagGenerator
+from backend.rag.index import RagIndex
 from backend.vector.index import VectorIndex
 
-
-app = FastAPI(
-    title="Semantic-Translator API",
-    version="0.2.0",
-    description="Semantic translation platform with vector-oriented retrieval",
-)
-
-engine = TranslationEngine()
+app = FastAPI(title="Semantic-Translator API", version="0.3.0")
 vector_index = VectorIndex()
-generator = RetrievalGenerator(vector_index)
+rag_index = RagIndex()
+rag_generator = RagGenerator(rag_index)
 
+class RagIngestRequest(BaseModel):
+    path: str
+    domain: str | None = None
+    chunk_size: int = Field(default=700, ge=100)
+    chunk_overlap: int = Field(default=120, ge=0)
 
-class TranslationRequest(BaseModel):
-    text: str = Field(min_length=1)
-    source_language: str = "en"
-    target_language: str = "ru"
-    domain: str = "auto"
-
-
-class TranslationResponse(BaseModel):
-    original_text: str
-    translated_text: str
-    source_language: str
-    target_language: str
-    domain: str
-    used_terms: list[dict]
-    status: str
-
-
-class VectorSearchRequest(BaseModel):
-    query: str = Field(min_length=1)
+class SearchRequest(BaseModel):
+    query: str
     top_k: int = Field(default=5, ge=1, le=50)
     domain: str = "auto"
-    minimum_score: float = Field(default=0.0, ge=-1.0, le=1.0)
+    minimum_score: float = Field(default=0.0, ge=0.0, le=1.0)
 
-
-class GenerationRequest(BaseModel):
-    text: str = Field(min_length=1)
+class GenerateRequest(BaseModel):
+    text: str
     source_language: str = "en"
     target_language: str = "ru"
     domain: str = "auto"
     top_k: int = Field(default=5, ge=1, le=50)
-
 
 @app.get("/")
 def root() -> dict:
-    return {
-        "project": "Semantic-Translator",
-        "version": "0.2.0",
-        "status": "ready",
-        "vector_search": True,
-    }
-
-
-@app.get("/domains/detect")
-def detect_text_domain(text: str = Query(min_length=1)) -> dict:
-    return {"text": text, "domain": detect_domain(text)}
-
-
-@app.get("/terms/search")
-def find_terms(
-    query: str = "",
-    domain: str = "biology",
-    source_language: str = "en",
-    target_language: str = "ru",
-) -> dict:
-    terms = search_terms(
-        query=query,
-        domain=domain,
-        source_language=source_language,
-        target_language=target_language,
-    )
-    return {"query": query, "domain": domain, "count": len(terms), "terms": terms}
-
-
-@app.post("/translate", response_model=TranslationResponse)
-def translate(payload: TranslationRequest) -> TranslationResponse:
-    domain = detect_domain(payload.text) if payload.domain == "auto" else payload.domain
-    translated_text, used_terms = engine.translate(
-        text=payload.text,
-        source_language=payload.source_language,
-        target_language=payload.target_language,
-        domain=domain,
-    )
-    return TranslationResponse(
-        original_text=payload.text,
-        translated_text=translated_text,
-        source_language=payload.source_language,
-        target_language=payload.target_language,
-        domain=domain,
-        used_terms=used_terms,
-        status="terminology-prototype",
-    )
-
+    return {"project": "Semantic-Translator", "version": "0.3.0",
+            "vector_search": True, "rag": True}
 
 @app.post("/vectors/rebuild")
 def rebuild_vectors() -> dict:
-    count = vector_index.build()
-    return {"status": "rebuilt", "records": count}
+    return {"status": "rebuilt", "records": vector_index.build()}
 
+@app.get("/rag/status")
+def rag_status() -> dict:
+    return rag_index.status()
 
-@app.get("/vectors/status")
-def vector_status() -> dict:
-    return vector_index.status()
+@app.post("/rag/rebuild")
+def rag_rebuild() -> dict:
+    return {"status": "rebuilt", "chunks": rag_index.build_from_directory()}
 
+@app.post("/rag/ingest")
+def rag_ingest(payload: RagIngestRequest) -> dict:
+    count = rag_index.ingest_file(
+        Path(payload.path),
+        payload.domain,
+        ChunkingConfig(payload.chunk_size, payload.chunk_overlap),
+    )
+    return {"status": "ingested", "chunks": count}
 
-@app.post("/vectors/search")
-def vector_search(payload: VectorSearchRequest) -> dict:
+@app.post("/rag/search")
+def rag_search(payload: SearchRequest) -> dict:
     domain = None if payload.domain == "auto" else payload.domain
-    results = vector_index.search(
-        query=payload.query,
-        top_k=payload.top_k,
-        domain=domain,
-        minimum_score=payload.minimum_score,
+    results = rag_index.search(
+        payload.query, payload.top_k, domain, payload.minimum_score
     )
     return {"query": payload.query, "count": len(results), "results": results}
 
-
-@app.post("/generate")
-def generate(payload: GenerationRequest) -> dict:
-    return generator.generate(
-        text=payload.text,
-        source_language=payload.source_language,
-        target_language=payload.target_language,
-        domain=payload.domain,
-        top_k=payload.top_k,
+@app.post("/rag/generate")
+def rag_generate(payload: GenerateRequest) -> dict:
+    return rag_generator.generate(
+        payload.text, payload.source_language, payload.target_language,
+        payload.domain, payload.top_k
     )
