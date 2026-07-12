@@ -1,0 +1,20 @@
+[project]
+name = "semantic-translator"
+version = "0.1.0"
+description = "AI-powered semantic translation platform"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+  {name = "Semantic-Translator"}
+]
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.30",
+  "pydantic>=2.8",
+  "python-dotenv>=1.0"
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
