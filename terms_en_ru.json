@@ -1,0 +1,24 @@
+{
+  "metadata": {
+    "domain": "biology",
+    "source_language": "en",
+    "target_language": "ru",
+    "version": "0.1.0"
+  },
+  "terms": [
+    {
+      "semantic_id": "BIO-000001",
+      "source": "cell",
+      "target": "клетка",
+      "definition": "Basic structural and functional unit of living organisms.",
+      "status": "approved"
+    },
+    {
+      "semantic_id": "BIO-000002",
+      "source": "cell membrane",
+      "target": "клеточная мембрана",
+      "definition": "Biological membrane separating the interior of a cell from the external environment.",
+      "status": "approved"
+    }
+  ]
+}
