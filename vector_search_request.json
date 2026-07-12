@@ -1,0 +1,6 @@
+{
+  "query": "biological boundary surrounding a cell",
+  "top_k": 5,
+  "domain": "biology",
+  "minimum_score": 0.0
+}

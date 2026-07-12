@@ -1,0 +1,18 @@
+{
+  "vectorizer": {
+    "type": "hashing",
+    "dimensions": 384,
+    "word_ngram_min": 1,
+    "word_ngram_max": 2,
+    "character_ngram_min": 3,
+    "character_ngram_max": 5
+  },
+  "search": {
+    "default_top_k": 5,
+    "minimum_score": 0.05
+  },
+  "generation": {
+    "maximum_context_terms": 8,
+    "preserve_unknown_text": true
+  }
+}
