@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.1] - 2026-07-11
+
+### Added
+
+- Terminology loader for JSON dictionaries.
+- Domain-aware term lookup.
+- Terminology replacement prototype.
+- `/terms/search` API endpoint.
+- `/domains/detect` API endpoint.
+- Improved `/translate` prototype response.
+- Additional dictionary examples.
+- Tests for terminology search and domain detection.
+
 ## [0.1.0] - 2026-07-11
 
 ### Added

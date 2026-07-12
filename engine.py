@@ -1,8 +1,8 @@
-"""Base translation engine.
+"""Domain-aware translation prototype."""
 
-Version 0.1.0 contains only the interface.
-Real translation logic will be added in the next archive.
-"""
+from __future__ import annotations
+
+from backend.translator.terminology import apply_terminology
 
 
 class TranslationEngine:
@@ -12,8 +12,13 @@ class TranslationEngine:
         source_language: str,
         target_language: str,
         domain: str,
-    ) -> str:
+    ) -> tuple[str, list[dict]]:
         if not text.strip():
             raise ValueError("Text must not be empty.")
 
-        return text
+        return apply_terminology(
+            text=text,
+            domain=domain,
+            source_language=source_language,
+            target_language=target_language,
+        )

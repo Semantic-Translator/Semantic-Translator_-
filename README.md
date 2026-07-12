@@ -16,7 +16,7 @@ Semantic-Translator is designed to translate text with attention to:
 
 ## Version
 
-Current archive version: `v0.1.0`
+Current archive version: `v0.1.1`
 
 ## Initial architecture
 
@@ -68,3 +68,12 @@ Each archive contains the full current state of the project.
 ## License
 
 MIT
+
+
+## Version 0.1.1 capabilities
+
+- Detects a likely subject domain from keywords.
+- Loads terminology from JSON dictionaries.
+- Searches terms by source word, translation, or Semantic-ID.
+- Applies exact phrase replacements as a translation prototype.
+- Provides API endpoints for domain detection and terminology lookup.
