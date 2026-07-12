@@ -1,0 +1,17 @@
+{
+  "ingestion": {
+    "chunk_size": 700,
+    "chunk_overlap": 120
+  },
+  "retrieval": {
+    "default_top_k": 5,
+    "vector_weight": 0.7,
+    "lexical_weight": 0.2,
+    "terminology_weight": 0.1
+  },
+  "embeddings": {
+    "provider": "hashing",
+    "dimensions": 384,
+    "optional_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+  }
+}

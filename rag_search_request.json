@@ -1,0 +1,6 @@
+{
+  "query": "What separates a cell from the external environment?",
+  "top_k": 5,
+  "domain": "biology",
+  "minimum_score": 0.0
+}
