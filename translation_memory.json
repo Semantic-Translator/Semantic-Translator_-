@@ -1,0 +1,18 @@
+{
+  "search": {
+    "default_top_k": 5,
+    "exact_weight": 0.5,
+    "vector_weight": 0.3,
+    "lexical_weight": 0.2,
+    "minimum_score": 0.1
+  },
+  "reuse": {
+    "approved_only": true,
+    "minimum_reuse_score": 0.85
+  },
+  "quality": {
+    "terminology_weight": 0.4,
+    "memory_weight": 0.35,
+    "context_weight": 0.25
+  }
+}

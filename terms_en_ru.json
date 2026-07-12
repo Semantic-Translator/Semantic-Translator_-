@@ -1,23 +1,30 @@
 {
   "metadata": {
-    "domain": "biology",
+    "domain": "common",
     "source_language": "en",
     "target_language": "ru",
-    "version": "0.1.0"
+    "version": "0.1.1"
   },
   "terms": [
     {
-      "semantic_id": "BIO-000001",
-      "source": "cell",
-      "target": "клетка",
-      "definition": "Basic structural and functional unit of living organisms.",
+      "semantic_id": "COM-000001",
+      "source": "research",
+      "target": "исследование",
+      "definition": "Systematic investigation.",
       "status": "approved"
     },
     {
-      "semantic_id": "BIO-000002",
-      "source": "cell membrane",
-      "target": "клеточная мембрана",
-      "definition": "Biological membrane separating the interior of a cell from the external environment.",
+      "semantic_id": "COM-000002",
+      "source": "result",
+      "target": "результат",
+      "definition": "Outcome of an action or study.",
+      "status": "approved"
+    },
+    {
+      "semantic_id": "COM-000003",
+      "source": "method",
+      "target": "метод",
+      "definition": "A procedure or approach.",
       "status": "approved"
     }
   ]

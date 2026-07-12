@@ -1,0 +1,23 @@
+{
+  "storage": {
+    "graph_path": "storage/knowledge_graph/graph.json",
+    "ontology_path": "storage/ontologies"
+  },
+  "search": {
+    "default_top_k": 10,
+    "vector_weight": 0.6,
+    "lexical_weight": 0.25,
+    "relation_weight": 0.15
+  },
+  "relations": [
+    "is-a",
+    "part-of",
+    "has-part",
+    "related-to",
+    "causes",
+    "regulates",
+    "located-in",
+    "expressed-in",
+    "derived-from"
+  ]
+}

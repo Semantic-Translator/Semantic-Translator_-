@@ -1,0 +1,39 @@
+{
+  "default_provider": "local",
+  "fallback_provider": "local",
+  "providers": {
+    "local": {
+      "enabled": true,
+      "type": "local",
+      "model": "semantic-local-v0"
+    },
+    "http": {
+      "enabled": false,
+      "type": "http",
+      "base_url_env": "SEMANTIC_LLM_BASE_URL",
+      "api_key_env": "SEMANTIC_LLM_API_KEY",
+      "model_env": "SEMANTIC_LLM_MODEL",
+      "timeout_seconds": 60
+    }
+  },
+  "generation_profiles": {
+    "scientific": {
+      "temperature": 0.1,
+      "max_tokens": 1200,
+      "preserve_terms": true,
+      "preserve_units": true,
+      "preserve_references": true
+    },
+    "literal": {
+      "temperature": 0.0,
+      "max_tokens": 1000,
+      "preserve_terms": true
+    },
+    "explanatory": {
+      "temperature": 0.3,
+      "max_tokens": 1800,
+      "preserve_terms": true,
+      "allow_clarification": true
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "text": "The cell membrane separates the interior of the cell from the external environment.",
+  "source_language": "en",
+  "target_language": "ru",
+  "domain": "biology",
+  "profile": "scientific",
+  "provider": "local",
+  "top_k": 5,
+  "reuse_threshold": 0.85
+}

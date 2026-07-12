@@ -1,0 +1,164 @@
+{
+  "version": "0.6.0",
+  "name": "biology-core",
+  "nodes": [
+    {
+      "semantic_id": "BIO-000001",
+      "domain": "biology",
+      "labels": {
+        "en": "cell",
+        "ru": "клетка",
+        "uk": "клітина",
+        "la": "cellula"
+      },
+      "aliases": {
+        "en": [
+          "biological cell"
+        ],
+        "ru": [
+          "биологическая клетка"
+        ]
+      },
+      "definition": "Basic structural and functional unit of living organisms.",
+      "metadata": {
+        "status": "approved"
+      }
+    },
+    {
+      "semantic_id": "BIO-000002",
+      "domain": "biology",
+      "labels": {
+        "en": "cell membrane",
+        "ru": "клеточная мембрана",
+        "uk": "клітинна мембрана",
+        "la": "membrana cellularis"
+      },
+      "aliases": {
+        "en": [
+          "plasma membrane"
+        ],
+        "ru": [
+          "плазматическая мембрана"
+        ]
+      },
+      "definition": "Membrane separating the cell interior from the external environment.",
+      "metadata": {
+        "status": "approved"
+      }
+    },
+    {
+      "semantic_id": "BIO-000003",
+      "domain": "biology",
+      "labels": {
+        "en": "nucleus",
+        "ru": "ядро",
+        "uk": "ядро",
+        "la": "nucleus"
+      },
+      "definition": "Membrane-bound organelle containing genetic material.",
+      "metadata": {
+        "status": "approved"
+      }
+    },
+    {
+      "semantic_id": "BIO-000004",
+      "domain": "biology",
+      "labels": {
+        "en": "cytoplasm",
+        "ru": "цитоплазма",
+        "uk": "цитоплазма",
+        "la": "cytoplasma"
+      },
+      "definition": "Material within a cell excluding the nucleus.",
+      "metadata": {
+        "status": "approved"
+      }
+    },
+    {
+      "semantic_id": "BIO-000005",
+      "domain": "biology",
+      "labels": {
+        "en": "mitochondrion",
+        "ru": "митохондрия",
+        "uk": "мітохондрія",
+        "la": "mitochondrium"
+      },
+      "definition": "Organelle involved in cellular energy production.",
+      "metadata": {
+        "status": "approved"
+      }
+    },
+    {
+      "semantic_id": "BIO-000006",
+      "domain": "biology",
+      "labels": {
+        "en": "protein",
+        "ru": "белок",
+        "uk": "білок",
+        "la": "proteinum"
+      },
+      "definition": "Biological macromolecule composed of amino acids.",
+      "metadata": {
+        "status": "approved"
+      }
+    },
+    {
+      "semantic_id": "BIO-000008",
+      "domain": "biology",
+      "labels": {
+        "en": "DNA",
+        "ru": "ДНК",
+        "uk": "ДНК",
+        "la": "acidum deoxyribonucleicum"
+      },
+      "definition": "Molecule carrying genetic information.",
+      "metadata": {
+        "status": "approved"
+      }
+    }
+  ],
+  "relations": [
+    {
+      "relation_id": "REL-BIO-000001",
+      "source_id": "BIO-000002",
+      "relation_type": "part-of",
+      "target_id": "BIO-000001",
+      "confidence": 1.0
+    },
+    {
+      "relation_id": "REL-BIO-000002",
+      "source_id": "BIO-000003",
+      "relation_type": "part-of",
+      "target_id": "BIO-000001",
+      "confidence": 1.0
+    },
+    {
+      "relation_id": "REL-BIO-000003",
+      "source_id": "BIO-000004",
+      "relation_type": "part-of",
+      "target_id": "BIO-000001",
+      "confidence": 1.0
+    },
+    {
+      "relation_id": "REL-BIO-000004",
+      "source_id": "BIO-000005",
+      "relation_type": "part-of",
+      "target_id": "BIO-000001",
+      "confidence": 1.0
+    },
+    {
+      "relation_id": "REL-BIO-000005",
+      "source_id": "BIO-000008",
+      "relation_type": "located-in",
+      "target_id": "BIO-000003",
+      "confidence": 0.95
+    },
+    {
+      "relation_id": "REL-BIO-000006",
+      "source_id": "BIO-000006",
+      "relation_type": "related-to",
+      "target_id": "BIO-000002",
+      "confidence": 0.9
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "semantic_id": "BIO-000009",
+  "domain": "biology",
+  "labels": {
+    "en": "RNA",
+    "ru": "РНК",
+    "uk": "РНК",
+    "la": "acidum ribonucleicum"
+  },
+  "aliases": {
+    "en": [
+      "ribonucleic acid"
+    ]
+  },
+  "definition": "Molecule involved in gene expression.",
+  "metadata": {
+    "status": "draft"
+  }
+}

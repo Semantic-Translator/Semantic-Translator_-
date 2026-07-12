@@ -16,7 +16,7 @@ Semantic-Translator is designed to translate text with attention to:
 
 ## Version
 
-Current archive version: `v0.5.0`
+Current archive version: `v0.6.0`
 
 ## Initial architecture
 
@@ -159,3 +159,31 @@ Version 0.5.0 introduces a model-independent generation layer:
 - advanced generation endpoint.
 
 The default mode remains fully local. External providers are optional.
+
+
+## Version 0.6.0 — Semantic Knowledge Graph
+
+Version 0.6.0 introduces a graph-oriented knowledge layer:
+
+- Semantic-ID nodes;
+- multilingual labels;
+- typed relations;
+- graph neighbors;
+- path search;
+- concept recommendations;
+- ontology import and export;
+- graph validation;
+- vector-oriented concept search;
+- graph context integration for translation.
+
+### New API endpoints
+
+- `POST /graph/node`
+- `POST /graph/relation`
+- `POST /graph/search`
+- `POST /graph/neighbors`
+- `POST /graph/path`
+- `GET /graph/status`
+- `POST /graph/export`
+- `POST /ontology/import`
+- `POST /ontology/validate`
