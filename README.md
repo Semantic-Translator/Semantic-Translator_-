@@ -16,7 +16,7 @@ Semantic-Translator is designed to translate text with attention to:
 
 ## Version
 
-Current archive version: `v0.3.0`
+Current archive version: `v0.1.0`
 
 ## Initial architecture
 
@@ -68,54 +68,3 @@ Each archive contains the full current state of the project.
 ## License
 
 MIT
-
-
-## Version 0.1.1 capabilities
-
-- Detects a likely subject domain from keywords.
-- Loads terminology from JSON dictionaries.
-- Searches terms by source word, translation, or Semantic-ID.
-- Applies exact phrase replacements as a translation prototype.
-- Provides API endpoints for domain detection and terminology lookup.
-
-
-## Version 0.2.0: vector-oriented search and generation
-
-This version introduces a local vector pipeline:
-
-1. Terminology records are converted into normalized vectors.
-2. Vectors are stored in a portable JSON index.
-3. Search uses cosine similarity.
-4. Retrieved terminology is passed into a context-oriented generation layer.
-5. The solution works locally without an external API.
-
-The default vectorizer is deterministic and dependency-free. It uses hashed character
-and word features. A later version can replace it with Sentence Transformers or another
-embedding model without changing the search interface.
-
-### New API endpoints
-
-- `POST /vectors/rebuild` — rebuild vector index.
-- `POST /vectors/search` — semantic search.
-- `POST /generate` — retrieval-oriented translation generation.
-- `GET /vectors/status` — index status.
-
-
-## Version 0.3.0 — Hybrid RAG
-
-- ingestion of TXT, MD, JSON and CSV documents;
-- chunking with overlap;
-- local document vector index;
-- hybrid vector and lexical search;
-- terminology-aware reranking;
-- unified RAG generation context;
-- pluggable embedding providers;
-- fully local default mode.
-
-### API
-
-- `POST /rag/ingest`
-- `POST /rag/rebuild`
-- `POST /rag/search`
-- `POST /rag/generate`
-- `GET /rag/status`

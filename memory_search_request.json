@@ -1,0 +1,9 @@
+{
+  "query": "DNA contains genetic information.",
+  "source_language": "en",
+  "target_language": "ru",
+  "domain": "biology",
+  "top_k": 5,
+  "approved_only": true,
+  "minimum_score": 0.0
+}
