@@ -1,11 +1,33 @@
-from abc import ABC, abstractmethod
+"""LLM provider abstraction."""
 
-class EmbeddingProvider(ABC):
-    @property
+from __future__ import annotations
+
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from typing import Any
+
+
+@dataclass
+class GenerationResult:
+    text: str
+    provider: str
+    model: str
+    metadata: dict[str, Any]
+
+
+class LLMProvider(ABC):
+    name: str = "unknown"
+
     @abstractmethod
-    def dimensions(self) -> int:
+    def generate(
+        self,
+        prompt: str,
+        *,
+        temperature: float = 0.1,
+        max_tokens: int = 1200,
+    ) -> GenerationResult:
         raise NotImplementedError
 
     @abstractmethod
-    def encode(self, text: str) -> list[float]:
+    def health(self) -> dict[str, Any]:
         raise NotImplementedError

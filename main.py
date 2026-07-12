@@ -1,46 +1,55 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+
+from backend.llm.orchestrator import LLMTranslationOrchestrator
 
 
 app = FastAPI(
     title="Semantic-Translator API",
-    version="0.1.0",
-    description="Semantic translation platform API",
+    version="0.5.0",
+    description="Semantic translator with vector memory, RAG and LLM orchestration",
 )
 
+orchestrator = LLMTranslationOrchestrator()
 
-class TranslationRequest(BaseModel):
-    text: str
-    source_language: str = "auto"
+
+class LLMTranslationRequest(BaseModel):
+    text: str = Field(min_length=1)
+    source_language: str = "en"
     target_language: str = "ru"
-    domain: str = "common"
-
-
-class TranslationResponse(BaseModel):
-    original_text: str
-    translated_text: str
-    source_language: str
-    target_language: str
-    domain: str
-    status: str
+    domain: str = "auto"
+    profile: str = "scientific"
+    provider: str = "local"
+    top_k: int = Field(default=5, ge=1, le=50)
+    reuse_threshold: float = Field(default=0.85, ge=0.0, le=1.0)
 
 
 @app.get("/")
 def root() -> dict:
     return {
         "project": "Semantic-Translator",
-        "version": "0.1.0",
-        "status": "ready",
+        "version": "0.5.0",
+        "vector_search": True,
+        "rag": True,
+        "translation_memory": True,
+        "llm_orchestration": True,
     }
 
 
-@app.post("/translate", response_model=TranslationResponse)
-def translate(payload: TranslationRequest) -> TranslationResponse:
-    return TranslationResponse(
-        original_text=payload.text,
-        translated_text=payload.text,
+@app.get("/llm/health")
+def llm_health(provider: str = "local") -> dict:
+    return orchestrator.health(provider)
+
+
+@app.post("/translate/llm")
+def translate_llm(payload: LLMTranslationRequest) -> dict:
+    return orchestrator.translate(
+        text=payload.text,
         source_language=payload.source_language,
         target_language=payload.target_language,
         domain=payload.domain,
-        status="prototype",
+        profile=payload.profile,
+        provider=payload.provider,
+        top_k=payload.top_k,
+        reuse_threshold=payload.reuse_threshold,
     )
